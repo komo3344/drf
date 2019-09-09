@@ -47,9 +47,12 @@ INSTALLED_APPS = [
 
     'api',
     'users',
+    'corsheaders',  # HTTP 접근제어 규약(CORS)
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # new
+    'django.middleware.common.CommonMiddleware',  # new
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,4 +132,26 @@ AUTH_USER_MODEL = 'users.CustomUser'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+
+CORS_ORIGIN_WHITELIST = (
+    'https://localhost:3000',
+)
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+"""class CsrfCookieToHeader(object):
+    def process_request(self, request):
+        csrftoken = request.COOKIES.get('csrftoken')
+        if csrftoken:
+            request.META['HTTP_X_CSRFTOKEN'] = csrftoken
+
+MIDDLEWARE_CLASSES = (
+    'phople.middleware.CsrfCookieToHeader',
+)"""
 

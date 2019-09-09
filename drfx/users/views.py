@@ -7,19 +7,19 @@ from .permissions import IsOwnerOrReadOnly
 
 
 class UserListView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = ()
     queryset = models.CustomUser.objects.all()
     serializer_class = serializers.UserSerializer
 
 
 class UserDetailView(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = ()
     queryset = models.CustomUser.objects.all()
     serializer_class = serializers.UserSerializer
 
 
 class PostListView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = ()
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
 

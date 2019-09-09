@@ -1,0 +1,1 @@
+{"ast":null,"code":"'use strict';\n\nvar scan = require('./scan');\n\nvar parse = require('./parse');\n\nmodule.exports = function (source) {\n  return parse(scan(source));\n};","map":null,"metadata":{},"sourceType":"script"}
