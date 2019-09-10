@@ -14,6 +14,7 @@ class Signup extends Component {
       method: 'POST',
       body: data,
     });
+    window.location.assign('http://127.0.0.1:3000');
   }
 
   render() {

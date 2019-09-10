@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
+
 class Home extends Component {
     constructor() {
       super();
       this.handleLogin = this.handleLogin.bind(this);
     }
-    const 
+
     handleLogin(event) {
       event.preventDefault();
       const data = new FormData(event.target);
       
       fetch('http://127.0.0.1:8000/api/v1/rest-auth/login/', {
         method: 'POST',
-        body: data,
+        body: data
       });
-      
+      //window.location.assign('http://127.0.0.1:3000/posts/')
     }
   
     render() {
@@ -38,4 +39,6 @@ class Home extends Component {
     }
   }
   
-  export default Home;
+
+
+export default Home;

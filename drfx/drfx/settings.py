@@ -134,24 +134,29 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
 
 CORS_ORIGIN_WHITELIST = (
-    'https://localhost:3000',
+    'https://127.0.0.1:3000',
 )
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ]
+
 }
-"""class CsrfCookieToHeader(object):
-    def process_request(self, request):
-        csrftoken = request.COOKIES.get('csrftoken')
-        if csrftoken:
-            request.META['HTTP_X_CSRFTOKEN'] = csrftoken
 
-MIDDLEWARE_CLASSES = (
-    'phople.middleware.CsrfCookieToHeader',
-)"""
+REST_USE_JWT = True
 
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'drfx.utils.my_jwt_response_handler'
+}
