@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Posts extends Component {
     state = {
@@ -32,6 +33,7 @@ class Posts extends Component {
                     )
                 )
                 }
+                    <p><Link to='/'>Home</Link></p>
                 <div>
                     
                 </div>

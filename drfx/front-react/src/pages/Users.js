@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Users extends Component {
     state = {
@@ -26,6 +27,7 @@ class Users extends Component {
                         <p>EMAIL : {item.email}</p><br />
                     </div>
                 ))}
+                <p><Link to='/'>Home</Link></p>
             </div>
         );
     }

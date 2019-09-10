@@ -30,14 +30,14 @@ class SignupForm extends React.Component {
         />
         <label htmlFor="password1">Password1</label>
         <input
-          type="password"
+          type="password1"
           name="password1"
           value={this.state.password1}
           onChange={this.handle_change}
         />
         <label htmlFor="password2">Password2</label>
         <input
-          type="password"
+          type="password2"
           name="password2"
           value={this.state.password2}
           onChange={this.handle_change}
