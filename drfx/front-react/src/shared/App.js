@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { Home, About, Posts, Signup, Users, Nav, SignupForm, LoginForm } from 'pages';
+import { Route } from 'react-router-dom';
+import { Home, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
 
 
 class App extends Component {
@@ -102,10 +102,6 @@ class App extends Component {
                                 : 'Please Log In'}
                         </h3>
                         <Route exact path="/" component={Home} />
-                        <Switch>
-                            <Route path="/about/:name" component={About} />
-                            <Route path="/about" component={About} />
-                        </Switch>
                         <Route path="/posts" component={Posts} />
                         <Route path="/users" component={Users} />
                     </div>
