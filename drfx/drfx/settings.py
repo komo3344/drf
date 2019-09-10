@@ -141,17 +141,17 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
-"""class CsrfCookieToHeader(object):
-    def process_request(self, request):
-        csrftoken = request.COOKIES.get('csrftoken')
-        if csrftoken:
-            request.META['HTTP_X_CSRFTOKEN'] = csrftoken
 
-MIDDLEWARE_CLASSES = (
-    'phople.middleware.CsrfCookieToHeader',
-)"""
 
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'drfx.utils.my_jwt_response_handler'
+}

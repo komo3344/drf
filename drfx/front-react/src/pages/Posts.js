@@ -27,10 +27,14 @@ class Posts extends Component {
                         <p>내용 : {item.content}</p>
                         <p>작성자 : {item.owner}</p>
                         <p>생성일 : {item.created_at}</p><br />
+                        
                     </div>
                     )
                 )
                 }
+                <div>
+                    
+                </div>
             </div>
         );
     }

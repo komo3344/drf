@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 
 class Home extends Component {
+  state = {
+    token: ''
+  }
     constructor() {
       super();
       this.handleLogin = this.handleLogin.bind(this);
     }
-    const 
     handleLogin(event) {
-      event.preventDefault();
-      const data = new FormData(event.target);
-      
-      fetch('http://127.0.0.1:8000/api/v1/rest-auth/login/', {
-        method: 'POST',
-        body: data,
-      });
-      
+        event.preventDefault();
+        const data = new FormData(event.target);
+        
+        fetch('http://127.0.0.1:8000/token-auth/', {
+          method: 'POST',
+          body: data,
+        }).then(response => response.json()).then(response => console.log(response));
     }
   
     render() {
       return (
         <form onSubmit={this.handleLogin}>
+          <p>{this.token}</p>
+          <p>{console.log(this.token)}</p>
           <label htmlFor="username">ID 입력: </label>
           <input id="username" name="username" type="text" /><br />
-  
-          <label htmlFor="email">Eamil 입력: </label>
-          <input id="email" name="email" type="email" /><br />
   
           <label htmlFor="password">비밀번호 입력: </label>
           <input id="password" name="password" type="text" /><br />
