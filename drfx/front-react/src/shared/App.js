@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Home, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
+import { Home, Write, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
 
 
 class App extends Component {
@@ -104,6 +104,7 @@ class App extends Component {
                         <Route exact path="/" component={Home} />
                         <Route path="/posts" component={Posts} />
                         <Route path="/users" component={Users} />
+                        <Route path="/write" component={Write} />
                     </div>
                 );
         

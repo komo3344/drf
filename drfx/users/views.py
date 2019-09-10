@@ -42,7 +42,7 @@ class PostListView(generics.ListCreateAPIView):
     serializer_class = serializers.PostSerializer
 
     def perform_create(self, serializer):
-        serializers.save(owner=self.request.user)
+        serializer.save(owner=self.request.user)
 
 
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
