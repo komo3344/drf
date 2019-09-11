@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import { Home, Write, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
+import { Route, Link } from 'react-router-dom';
+import { Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
 
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
         super(props);
         this.state = {
             displayed_form: '',
-            logged_in: localStorage.getItem('token') ? true : false,
+            logged_in: false,
             username: ''
         };
     }
@@ -45,6 +45,29 @@ class App extends Component {
                 });
             });
     };
+
+    handle_write = (e, data) => {
+        e.preventDefault();
+        fetch('http://127.0.0.1:8000/api/v1/users/posts/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                res.json()
+                console.log(res)
+            })
+            .then(json => {
+                this.setState({
+                    logged_in: true,
+                    displayed_form: '',
+                });
+            });
+
+    };
+
     handle_signup = (e, data) => {
         e.preventDefault();
         fetch('http://127.0.0.1:8000/api/v1/users/', {
@@ -85,29 +108,33 @@ class App extends Component {
             case 'signup':
                 form = <SignupForm handle_signup={this.handle_signup} />;
                 break;
+            case 'write':
+                form = <Write handle_write={this.handle_write} />
+                break;
             default:
                 form = null;
         }
-                return (
-                    <div>
-                        <Nav
-                            logged_in={this.state.logged_in}
-                            display_form={this.display_form}
-                            handle_logout={this.handle_logout}
-                        />
-                        {form}
-                        <h3>
-                            {this.state.logged_in
-                                ? `Hello, ${this.state.username}`
-                                : 'Please Log In'}
-                        </h3>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/posts" component={Posts} />
-                        <Route path="/users" component={Users} />
-                        <Route path="/write" component={Write} />
-                    </div>
-                );
-        
+        return (
+            <div>
+                <Nav
+                    logged_in={this.state.logged_in}
+                    display_form={this.display_form}
+                    handle_logout={this.handle_logout}
+                />
+                {form}
+                <h3>
+                    {this.state.logged_in
+                        ? `Hello, ${this.state.username}`
+                        : 'Please Log In'}
+                </h3>
+                <p><Link to='/users'>User List</Link></p>
+                <p><Link to='/posts'>posts List</Link></p>
+                <Route path="/posts" component={Posts} />
+                <Route path="/users" component={Users} />
+                
+            </div>
+        );
+
     }
 }
 export default App;

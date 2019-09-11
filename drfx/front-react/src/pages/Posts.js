@@ -34,7 +34,6 @@ class Posts extends Component {
                 )
                 }
                   <p><Link to='/'>Home</Link></p>
-                  <p><Link to='/Write'>Write</Link></p>
             </div>
         );
     }

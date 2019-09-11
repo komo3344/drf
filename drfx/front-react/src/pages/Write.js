@@ -1,53 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-class Write extends Component {
+class Write extends React.Component {
   state = {
     title: '',
     content: ''
   };
   handle_change = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState(prevstate => {
-      const newState = { ...prevstate };
-      newState[name] = value;
-      return newState;
-    });
-  };
-
-  handle_write = (e, data) => {
-    const { x } = this.state;
+    const title = e.target.title
+    const content = e.target.content
     this.setState({
-      title: x.title,
-      content: x.Component
+      title: title,
+      content: content
     })
-
-    e.preventDefault();
-    fetch('http://127.0.0.1:8000/api/v1/users/posts/', {
-      method: 'POST',
-      body : this.state
-    })
-    
   }
-  render(){
+
+  render() {
     return (
       <div>
         <div>
           <h3>게시물작성 </h3>
-          <form onSumit={this.handle_write}>
+          <form onSubmit={e => this.props.handle_write(e, this.state)}>
             <label htmlFor="title">title</label>
             <input
               type="text"
               name="title"
-              value={this.state.title}
               onChange={this.handle_change}
             />
             <label htmlFor="content">content</label>
             <input
               type="text"
               name="content"
-              value={this.state.content}
               onChange={this.handle_change}
             />
             <input type="submit" />
@@ -63,3 +47,7 @@ class Write extends Component {
 }
 
 export default Write;
+
+Write.propTypes = {
+  handle_write: PropTypes.func.isRequired
+};
