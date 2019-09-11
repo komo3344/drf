@@ -6,6 +6,16 @@ class Posts extends Component {
         posts: []
     };
 
+    handleDelete = url=> {
+        fetch(url, {
+          method: 'DELETE',
+          headers: {
+          Authorization: `JWT ${localStorage.getItem('token')}`
+          }
+        });
+        window.location.reload();
+    }
+    
     async componentDidMount() {
         try {
             const res = await fetch('http://127.0.0.1:8000/api/v1/users/posts/');
@@ -27,8 +37,9 @@ class Posts extends Component {
                         <h4>제목 : {item.title}</h4>
                         <p>내용 : {item.content}</p>
                         <p>작성자 : {item.owner}</p>
-                        <p>생성일 : {item.created_at}</p><br />
-                        
+                        <p>생성일 : {item.created_at}</p>
+                        <button onClick={() => { this.handleDelete(item.url) }}>삭제</button>
+                        <br /><br />
                     </div>
                     )
                 )
