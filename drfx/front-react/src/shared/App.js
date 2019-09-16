@@ -38,7 +38,7 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json.user.id)
+                console.log(json)
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('id', json.user.id);
                 this.setState({
@@ -131,7 +131,8 @@ class App extends Component {
                 <h3>
                     {this.state.logged_in
                         ? `Hello, ${this.state.username}`
-                        : 'Please Log In'}
+                        : 'Please Log In'
+                    }
                 </h3>
                 <p><Link to='/users'>User List</Link></p>
                 <p><Link to='/posts'>posts List</Link></p>
