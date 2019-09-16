@@ -8,20 +8,21 @@ class App extends Component {
         super(props);
         this.state = {
             displayed_form: '',
-            logged_in: false,
+            logged_in: localStorage.getItem('token') ? true : false,
             username: ''
         };
     }
 
     componentDidMount() {
         if (this.state.logged_in) {
-            fetch('http://127.0.0.1:8000/api/v1/users/', {
+            fetch(`http://127.0.0.1:8000/api/v1/users/${localStorage.getItem('id')}/`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
                 .then(res => res.json())
                 .then(json => {
+                    console.log(json)
                     this.setState({ username: json.username });
                 });
         }
@@ -37,8 +38,9 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json);
+                console.log(json.user.id)
                 localStorage.setItem('token', json.token);
+                localStorage.setItem('id', json.user.id);
                 this.setState({
                     logged_in: true,
                     displayed_form: '',
@@ -49,16 +51,17 @@ class App extends Component {
 
     handle_write = (e, data) => {
         e.preventDefault();
+        console.log(data)
         fetch('http://127.0.0.1:8000/api/v1/users/posts/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `JWT ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(data)
         })
             .then(res => {
                 res.json()
-                console.log(res)
             })
             .then(json => {
                 this.setState({
@@ -66,6 +69,7 @@ class App extends Component {
                     displayed_form: '',
                 });
             });
+            window.location.reload();
 
     };
 
@@ -81,7 +85,6 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 localStorage.setItem('token', json.token);
                 this.setState({
                     logged_in: true,

@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Write extends React.Component {
-  state = {
-    title: '',
-    content: ''
-  };
+  state = {};
+
   handle_change = e => {
-    const title = e.target.title
-    const content = e.target.content
-    this.setState({
-      title: title,
-      content: content
-    })
-  }
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState(prevstate => {
+      const newState = { ...prevstate };
+      newState[name] = value;
+      return newState;
+    });
+  };
 
   render() {
     return (
