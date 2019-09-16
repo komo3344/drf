@@ -37,6 +37,7 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
+                console.log(json);
                 localStorage.setItem('token', json.token);
                 this.setState({
                     logged_in: true,
@@ -80,11 +81,12 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
+                console.log(json)
                 localStorage.setItem('token', json.token);
                 this.setState({
                     logged_in: true,
                     displayed_form: '',
-                    username: json.username
+                    username: data.username
                 });
             });
     };
