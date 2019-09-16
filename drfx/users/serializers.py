@@ -35,6 +35,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         model = models.CustomUser
         fields = ('token', 'username', 'password')
 
+
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 

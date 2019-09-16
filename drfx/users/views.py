@@ -4,9 +4,20 @@ from . import models
 from . import serializers
 from .permissions import IsOwnerOrReadOnly
 from rest_framework import permissions, status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+
+
+@api_view(['GET'])
+def current_user(request):
+    """
+    Determine the current user by their token, and return their data
+    """
+
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
 
 
 class UserListView(generics.ListCreateAPIView):
@@ -19,6 +30,7 @@ class UserDetailView(generics.RetrieveAPIView):
     permission_classes = ()
     queryset = models.CustomUser.objects.all()
     serializer_class = serializers.UserSerializer
+
 
 class UserPostList(APIView):
     """
