@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 class Posts extends Component {
     state = {
         posts: []
@@ -13,7 +12,13 @@ class Posts extends Component {
           Authorization: `JWT ${localStorage.getItem('token')}`
           }
         });
-        window.location.reload();
+        //window.location.reload();
+    }
+
+    handle_put = (url)=> {
+
+        window.location.assign('/test');
+        console.log(url);
     }
     
     async componentDidMount() {
@@ -38,16 +43,20 @@ class Posts extends Component {
                         <p>내용 : {item.content}</p>
                         <p>작성자 : {item.owner}</p>
                         <p>생성일 : {item.created_at}</p>
+                        <p>url : {item.url}</p>
                         <button onClick={() => { this.handleDelete(item.url) }}>삭제</button>
+                        <button onClick={() => { this.handle_put(item.url) }}>수정</button>
                         <br /><br />
                     </div>
                     )
                 )
                 }
                   <p><Link to='/'>Home</Link></p>
+                  
             </div>
         );
     }
 }
 
 export default Posts;
+

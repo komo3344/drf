@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
+import { Posts, Users, Nav, SignupForm, LoginForm, Write, Put } from 'pages';
 
 
 class App extends Component {
@@ -73,6 +73,28 @@ class App extends Component {
 
     };
 
+    handle_put = (e, data) => {
+        e.preventDefault();
+        console.log(data)
+        fetch('http://127.0.0.1:8000/api/v1/users/posts/14/', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `JWT ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                res.json()
+            })
+            .then(json => {
+                this.setState({
+                    logged_in: true,
+                    displayed_form: '',
+                });
+            });
+            
+    };
     handle_signup = (e, data) => {
         e.preventDefault();
         fetch('http://127.0.0.1:8000/api/v1/rest-auth/registration/', {
@@ -115,7 +137,10 @@ class App extends Component {
                 form = <SignupForm handle_signup={this.handle_signup} />;
                 break;
             case 'write':
-                form = <Write handle_write={this.handle_write} />
+                form = <Write handle_write={this.handle_write} />  
+                break;
+            case 'put':
+                form = <Put handle_put={this.handle_put} /> 
                 break;
             default:
                 form = null;
@@ -137,7 +162,7 @@ class App extends Component {
                 <p><Link to='/posts'>posts List</Link></p>
                 <Route path="/posts" component={Posts} />
                 <Route path="/users" component={Users} />
-                
+                <Route path="/test" component={Put} />
             </div>
         );
 
