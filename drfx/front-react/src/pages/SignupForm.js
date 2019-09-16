@@ -28,13 +28,6 @@ class SignupForm extends React.Component {
           value={this.state.username}
           onChange={this.handle_change}
         />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handle_change}
-        />
         <label htmlFor="email">email</label>
         <input
           type="email"
@@ -42,6 +35,21 @@ class SignupForm extends React.Component {
           value={this.state.email}
           onChange={this.handle_change}
         />
+        <label htmlFor="password1">Password1</label>
+        <input
+          type="password"
+          name="password1"
+          value={this.state.password1}
+          onChange={this.handle_change}
+        />
+        <label htmlFor="password2">Password2</label>
+        <input
+          type="password"
+          name="password2"
+          value={this.state.password2}
+          onChange={this.handle_change}
+        />
+        
         <input type="submit" />
       </form>
     );

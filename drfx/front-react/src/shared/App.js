@@ -70,10 +70,11 @@ class App extends Component {
 
     handle_signup = (e, data) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:8000/api/v1/users/', {
+        fetch('http://127.0.0.1:8000/api/v1/rest-auth/registration/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken' : document.querySelector('meta[name="csrf-token"]')
             },
             body: JSON.stringify(data)
         })
