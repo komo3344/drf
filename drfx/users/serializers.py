@@ -38,7 +38,8 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    image = serializers.ImageField(use_url=True, required=False)
 
     class Meta:
         model = models.Post
-        fields = ('url', 'id', 'owner', 'title', 'content', 'created_at',)
+        fields = ('url', 'id', 'owner', 'title', 'content', 'created_at', 'image')

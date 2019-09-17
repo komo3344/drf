@@ -18,7 +18,7 @@ class Users extends Component {
         }
     }
 
-    render() {
+    render(){ 
         return (
             <div>
                 {this.state.Users.map(item => (

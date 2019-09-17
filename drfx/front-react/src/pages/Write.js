@@ -15,7 +15,6 @@ class Write extends React.Component {
     });
   };
 
-
   render() {
     return (
       <div>
@@ -33,15 +32,16 @@ class Write extends React.Component {
               type="text"
               name="content"
               onChange={this.handle_change}
-            />
-            <input type="submit" />
+            /><br />
+             <input type="submit" />
           </form>
         </div>
         <div>
+          
           <p><Link to='/'>Home</Link></p>
         </div>
       </div>
-
+      
     );
   }
 }

@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { URL } from 'pages';
+const style = {
+    image: {
+        border: '1px solid #ccc',
+        background: '#fefefe',
+    },
+};
 class Posts extends Component {
     state = {
         posts: [],
@@ -37,7 +43,9 @@ class Posts extends Component {
             this.setState({
                 id : id,
                 title : json.title,
-                content : json.content
+                content : json.content,
+                image : json.image,
+                
             })
         })
         
@@ -51,12 +59,15 @@ class Posts extends Component {
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json',
+                Authorization: `JWT ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 "title" : this.state.title,
-                "content" : this.state.content
+                "content" : this.state.content,
+                //"image" : this.state.image
             })
         })
+        console.log(`${URL.posts}${id}/`)
         window.location.reload();
         
     }
@@ -110,6 +121,15 @@ class Posts extends Component {
                                         <p>내용 : {item.content}</p>
                                         <p>작성자 : {item.owner}</p>
                                         <p>생성일 : {item.created_at}</p>
+                                        <img
+                                         src={item.image}
+                                         alt='No img'
+                                         height={240}
+                                         width={240}
+                                         style={style.image
+                                        }
+                                        /><br />
+                           
                                         <button onClick={() => {this.handleDelete(item.url)}}>삭제</button>
                                         <button onClick={() => {this.handleUpdate(item.id)}}>수정</button>
                                         <br /><br />
