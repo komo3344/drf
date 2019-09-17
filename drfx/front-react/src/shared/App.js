@@ -22,7 +22,6 @@ class App extends Component {
             })
                 .then(res => res.json())
                 .then(json => {
-                    console.log(json)
                     this.setState({ username: json.username });
                 });
         }
@@ -38,7 +37,6 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 localStorage.setItem('token', json.token);
                 localStorage.setItem('id', json.user.id);
                 this.setState({
@@ -51,7 +49,6 @@ class App extends Component {
 
     handle_write = (e, data) => {
         e.preventDefault();
-        console.log(data)
         fetch(URL.posts, {
             method: 'POST',
             headers: {
