@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { URL } from 'pages';
 class Users extends Component {
     state = {
         Users: []
@@ -8,7 +8,7 @@ class Users extends Component {
 
     async componentDidMount() {
         try {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/users/');
+            const res = await fetch(URL.userlist);
             const Users = await res.json();
             this.setState({
                 Users

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
+import { URL, Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
 
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
 
     componentDidMount() {
         if (this.state.logged_in) {
-            fetch(`http://127.0.0.1:8000/api/v1/users/${localStorage.getItem('id')}/`, {
+            fetch(`${URL.userlist}${localStorage.getItem('id')}/`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -29,7 +29,7 @@ class App extends Component {
     }
     handle_login = (e, data) => {
         e.preventDefault();
-        fetch('http://localhost:8000/token-auth/', {
+        fetch(URL.login, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ class App extends Component {
     handle_write = (e, data) => {
         e.preventDefault();
         console.log(data)
-        fetch('http://127.0.0.1:8000/api/v1/users/posts/', {
+        fetch(URL.posts, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ class App extends Component {
 
     handle_signup = (e, data) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:8000/api/v1/rest-auth/registration/', {
+        fetch(URL.signup, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { URL } from 'pages';
 class Posts extends Component {
     state = {
         posts: [],
@@ -31,7 +31,7 @@ class Posts extends Component {
         this.setState({
             editing : !this.state.editing
         })
-        fetch(`http://127.0.0.1:8000/api/v1/users/posts/${id}/`)
+        fetch(`${URL.posts}${id}/`)
         .then(res => res.json())
         .then(json => {
             this.setState({
@@ -47,7 +47,7 @@ class Posts extends Component {
         this.setState({
             editing : !this.state.editing
         })
-        fetch(`http://127.0.0.1:8000/api/v1/users/posts/${id}/`,{
+        fetch(`${URL.posts}${id}/`,{
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json',
@@ -63,7 +63,7 @@ class Posts extends Component {
 
     async componentDidMount() {
         try {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/users/posts/');
+            const res = await fetch(URL.posts);
             const posts = await res.json();
             this.setState({
                 posts
