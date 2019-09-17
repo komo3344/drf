@@ -14,7 +14,23 @@ class Write extends React.Component {
       return newState;
     });
   };
-
+  getInitialState = ()=>{
+    return{file: []}
+  };
+  _onChange = ()=>{
+    // Assuming only image
+    var file = this.refs.file.files[0];
+    var reader = new FileReader();
+    var url = reader.readAsDataURL(file);
+  
+     reader.onloadend = function (e) {
+        this.setState({
+            imgSrc: [reader.result]
+        })
+      }.bind(this);
+    console.log(url) // Would see a path?
+    // TODO: concat files
+  };
   render() {
     return (
       <div>
@@ -33,6 +49,12 @@ class Write extends React.Component {
               name="content"
               onChange={this.handle_change}
             /><br />
+                        <input 
+              ref="file" 
+              type="file" 
+              name="user[image]" 
+              multiple="true"
+              onChange={this._onChange}/>
              <input type="submit" />
           </form>
         </div>

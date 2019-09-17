@@ -69,8 +69,8 @@ class App extends Component {
                     displayed_form: '',
                 });
             });
-            window.location.reload();
-
+            //window.location.reload();
+            
     };
 
     handle_signup = (e, data) => {
