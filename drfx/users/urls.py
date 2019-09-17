@@ -2,6 +2,8 @@
 from django.urls import include, path
 from .views import UserPostList
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.UserListView.as_view(), name='users'),
@@ -11,7 +13,9 @@ urlpatterns = [
     path('users/', UserPostList.as_view())
 ]
 
+
 urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 

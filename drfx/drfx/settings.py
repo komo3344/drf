@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',  # HTTP 접근제어 규약(CORS)
 ]
 
-
+ROOT_URLCONF = 'drfx.urls'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # new
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'drfx.urls'
+
 
 TEMPLATES = [
     {
@@ -149,7 +149,7 @@ REST_FRAMEWORK = {
 
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication', # CSRF 오류 방지
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -160,3 +160,5 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'drfx.utils.my_jwt_response_handler'
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -37,7 +37,8 @@ class Posts extends Component {
             this.setState({
                 id : id,
                 title : json.title,
-                content : json.content
+                content : json.content,
+                image : json.image,
             })
         })
         
@@ -110,6 +111,7 @@ class Posts extends Component {
                                         <p>내용 : {item.content}</p>
                                         <p>작성자 : {item.owner}</p>
                                         <p>생성일 : {item.created_at}</p>
+                                        {item.image}<br />
                                         <button onClick={() => {this.handleDelete(item.url)}}>삭제</button>
                                         <button onClick={() => {this.handleUpdate(item.id)}}>수정</button>
                                         <br /><br />
