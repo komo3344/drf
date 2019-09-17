@@ -51,7 +51,7 @@ class Posts extends Component {
         
     }
 
-    handleTmp = (id) => {
+    handleModify = (id) => {
         this.setState({
             editing : !this.state.editing
         })
@@ -92,7 +92,7 @@ class Posts extends Component {
                     ? (
                         <div>
                             <h5>수정중</h5>
-                            <form onSubmit={() => {this.handleTmp(this.state.id)}}>
+                            <form onSubmit={() => {this.handleModify(this.state.id)}}>
                                 <label htmlFor="title">title</label>
                                 <input
                                 type="text"
