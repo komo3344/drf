@@ -48,20 +48,23 @@ class Write extends React.Component {
               type="text"
               name="title"
               onChange={this.handle_change}
+              required
             />
             <label htmlFor="content">content</label>
             <input
               type="text"
               name="content"
               onChange={this.handle_change}
+              required
             /><br />
             <input
               ref="file" //필요
-              id="image" 
+              id="image"
               accept="image/png, image/jpeg"
               type="file"
               name="image"
               onChange={this.handleImageChange}
+              required
             />
             <input type="submit" />
           </form>

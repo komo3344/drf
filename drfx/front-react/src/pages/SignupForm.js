@@ -49,7 +49,7 @@ class SignupForm extends React.Component {
           value={this.state.password2}
           onChange={this.handle_change}
         />
-        
+
         <input type="submit" />
       </form>
     );
