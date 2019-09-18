@@ -4,12 +4,14 @@ import { URL, Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
 
 
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             displayed_form: '',
             logged_in: localStorage.getItem('token') ? true : false,
-            username: ''
+            username: '',
+            file: ''
         };
     }
 
@@ -46,16 +48,54 @@ class App extends Component {
                 });
             });
     };
-
+    /////////////////////////////////////
+    _fileUploadHandler(e) {
+    
+        const formData = new FormData(); //form의 현재 key/value 들로 채워짐
+        formData.append('file', e.target.files[0]);
+        fetch(URL.login, {
+          method: 'POST',
+          headers: {
+            Authorization: `JWT ${localStorage.getItem('token')}`
+          },
+          body: formData
+      })
+        .then(response => {
+        console.log(response)
+        })
+        .catch(err => console.log(err))
+        }
+        /////////////////////////////////////
+        _handleImageChange(e) {
+            e.preventDefault();
+        
+            let reader = new FileReader();
+            let file = e.target.files[0];
+        
+            reader.onloadend = () => {
+              this.setState({
+                file: file,
+              });
+            }
+        
+            reader.readAsDataURL(file)
+          }
+          ////////////////////////////////////
     handle_write = (e, data) => {
+
         e.preventDefault();
+        const formData = new FormData(); //form의 현재 key/value 들로 채워짐
+        formData.append('title', data.title);
+        formData.append('content', data.content);
+        formData.append('image', data.filePath); //file path
+
         fetch(URL.posts, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `JWT ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(data)
+            body: formData
         })
             .then(res => {
                 res.json()
@@ -67,7 +107,10 @@ class App extends Component {
                 });
             });
             //window.location.reload();
-            
+            console.log(data);
+            console.log(data.title);
+            console.log(data.content);
+            //console.log(file);
     };
 
     handle_signup = (e, data) => {
@@ -135,7 +178,6 @@ class App extends Component {
                 <p><Link to='/posts'>posts List</Link></p>
                 <Route path="/posts" component={Posts} />
                 <Route path="/users" component={Users} />
-                
             </div>
         );
 
