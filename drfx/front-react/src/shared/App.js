@@ -72,10 +72,22 @@ class App extends Component {
                     logged_in: true,
                     displayed_form: '',
                 });
+            }).then(()=>{
+                this.postlist()
+            })
+    }
+
+    async postlist() {
+        try {
+            const res = await fetch(URL.posts);
+            const posts = await res.json();
+            this.setState({
+                posts
             });
-            window.location.reload();
-            
-    };
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     handle_signup = (e, data) => {
         e.preventDefault();

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'api',
     'users',
     'corsheaders',  # HTTP 접근제어 규약(CORS)
+    'django_cleanup',
 ]
 
 

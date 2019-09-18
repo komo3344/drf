@@ -45,6 +45,7 @@ class Write extends React.Component {
           <form onSubmit={e => this.props.handle_write(e, this.state)}>
             <label htmlFor="title">title</label>
             <input
+              autoFocus
               type="text"
               name="title"
               onChange={this.handle_change}
@@ -56,6 +57,7 @@ class Write extends React.Component {
               onChange={this.handle_change}
             /><br />
             <input
+              required
               ref="file" //필요
               id="image" 
               accept="image/png, image/jpeg"

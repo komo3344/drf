@@ -29,8 +29,20 @@ class Posts extends Component {
             headers: {
                 Authorization: `JWT ${localStorage.getItem('token')}`
             }
-        });
-        window.location.reload();
+        }).then(() => {
+            this.postlist()
+        })
+    }
+    async postlist() {
+        try {
+            const res = await fetch(URL.posts);
+            const posts = await res.json();
+            this.setState({
+                posts
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     handleUpdate = (id) => {
@@ -66,9 +78,11 @@ class Posts extends Component {
                 "content" : this.state.content,
                 //"image" : this.state.image
             })
+        }).then(() =>{
+            this.postlist()
         })
-        console.log(`${URL.posts}${id}/`)
-        window.location.reload();
+        // console.log(`${URL.posts}${id}/`)
+        // window.location.reload();
         
     }
 
