@@ -49,13 +49,20 @@ class App extends Component {
 
     handle_write = (e, data) => {
         e.preventDefault();
+        var form_data = new FormData();
+
+        form_data.append('image', data.image);
+        form_data.append('title', data.title);
+        form_data.append('content', data.content);      
+
         fetch(URL.posts, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                Accept : '*/*',
                 Authorization: `JWT ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(data)
+            body: form_data
+            
         })
             .then(res => {
                 res.json()
@@ -66,7 +73,7 @@ class App extends Component {
                     displayed_form: '',
                 });
             });
-            //window.location.reload();
+            window.location.reload();
             
     };
 

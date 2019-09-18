@@ -14,23 +14,29 @@ class Write extends React.Component {
       return newState;
     });
   };
-  getInitialState = ()=>{
-    return{file: []}
+
+  handleImageChange = e => {
+    this.setState({
+      image: e.target.files[0]
+    })
+  }
+  getInitialState = () => {
+    return { file: [] }
   };
-  _onChange = ()=>{
-    // Assuming only image
-    var file = this.refs.file.files[0];
-    var reader = new FileReader();
-    var url = reader.readAsDataURL(file);
-  
-     reader.onloadend = function (e) {
-        this.setState({
-            imgSrc: [reader.result]
-        })
-      }.bind(this);
-    console.log(url) // Would see a path?
-    // TODO: concat files
-  };
+  // _onChange = () => {
+  //   // Assuming only image
+  //   var file = this.refs.file.files[0];
+  //   var reader = new FileReader();
+  //   var url = reader.readAsDataURL(file);
+
+  //   reader.onloadend = function (e) {
+  //     this.setState({
+  //       imgSrc: [reader.result]
+  //     })
+  //   }.bind(this);
+  //   console.log(url) // Would see a path?
+  //   // TODO: concat files
+  // };
   render() {
     return (
       <div>
@@ -49,21 +55,23 @@ class Write extends React.Component {
               name="content"
               onChange={this.handle_change}
             /><br />
-                        <input 
-              ref="file" 
-              type="file" 
-              name="user[image]" 
-              multiple="true"
-              onChange={this._onChange}/>
-             <input type="submit" />
+            <input
+              ref="file" //필요
+              id="image" 
+              accept="image/png, image/jpeg"
+              type="file"
+              name="image"
+              onChange={this.handleImageChange}
+            />
+            <input type="submit" />
           </form>
         </div>
         <div>
-          
+
           <p><Link to='/'>Home</Link></p>
         </div>
       </div>
-      
+
     );
   }
 }
