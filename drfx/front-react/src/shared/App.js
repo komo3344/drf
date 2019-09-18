@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { URL, Posts, Users, Nav, SignupForm, LoginForm, Write } from 'pages';
+import { URL, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
 
 
 class App extends Component {
@@ -47,48 +47,7 @@ class App extends Component {
             });
     };
 
-    handle_write = (e, data) => {
-        e.preventDefault();
-        var form_data = new FormData();
-
-        form_data.append('image', data.image);
-        form_data.append('title', data.title);
-        form_data.append('content', data.content);      
-
-        fetch(URL.posts, {
-            method: 'POST',
-            headers: {
-                Accept : '*/*',
-                Authorization: `JWT ${localStorage.getItem('token')}`
-            },
-            body: form_data
-            
-        })
-            .then(res => {
-                res.json()
-            })
-            .then(json => {
-                this.setState({
-                    logged_in: true,
-                    displayed_form: '',
-                });
-            }).then(()=>{
-                this.postlist()
-            })
-    }
-
-    async postlist() {
-        try {
-            const res = await fetch(URL.posts);
-            const posts = await res.json();
-            this.setState({
-                posts
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
+    
     handle_signup = (e, data) => {
         e.preventDefault();
         fetch(URL.signup, {
@@ -129,9 +88,6 @@ class App extends Component {
                 break;
             case 'signup':
                 form = <SignupForm handle_signup={this.handle_signup} />;
-                break;
-            case 'write':
-                form = <Write handle_write={this.handle_write} />
                 break;
             default:
                 form = null;

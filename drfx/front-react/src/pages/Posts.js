@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { URL } from 'pages';
+import { URL, Write } from 'pages';
 const style = {
     image: {
         border: '1px solid #ccc',
@@ -97,10 +97,41 @@ class Posts extends Component {
             console.log(e);
         }
     }
+    handle_write = (e, data) => {
+        e.preventDefault();
+        var form_data = new FormData();
 
-    render() {
+        form_data.append('image', data.image);
+        form_data.append('title', data.title);
+        form_data.append('content', data.content);      
+
+        fetch(URL.posts, {
+            method: 'POST',
+            headers: {
+                Accept : '*/*',
+                Authorization: `JWT ${localStorage.getItem('token')}`
+            },
+            body: form_data
+            
+        })
+            .then(res => {
+                res.json()
+            })
+            .then(json => {
+                this.setState({
+                    logged_in: true,
+                    displayed_form: '',
+                });
+            }).then(()=>{
+                this.postlist()
+            })
+    }
+    render(props) {
+        
+        
         return (
             <div>
+                <Write handle_write={this.handle_write} />
                 <div>
                 {this.state.editing
                     ? (
