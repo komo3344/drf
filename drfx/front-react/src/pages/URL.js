@@ -12,5 +12,4 @@ export default {
     posts,
     signup,
     userlist,
-
 };

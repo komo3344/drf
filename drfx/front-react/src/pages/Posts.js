@@ -10,7 +10,8 @@ const style = {
 class Posts extends Component {
     state = {
         posts: [],
-        editing : false
+        editing : false,
+        writeShowResults: false
     };
 
     handle_change = e => {
@@ -126,12 +127,19 @@ class Posts extends Component {
                 this.postlist()
             })
     }
-    render(props) {
-        
-        
+    onClick = () =>{
+        this.setState({
+            writeShowResults : !this.state.writeShowResults
+        })
+    }
+    render() {
         return (
             <div>
-                <Write handle_write={this.handle_write} />
+                <div>
+                <input type="submit" value="게시물 작성" onClick={this.onClick} />
+                { this.state.writeShowResults ? <Write handle_write={this.handle_write} /> : null }
+                    
+                </div>
                 <div>
                 {this.state.editing
                     ? (

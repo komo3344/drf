@@ -60,7 +60,7 @@ class Write extends React.Component {
               required
               ref="file" //필요
               id="image" 
-              accept="image/png, image/jpeg"
+              accept="image/*"
               type="file"
               name="image"
               onChange={this.handleImageChange}
