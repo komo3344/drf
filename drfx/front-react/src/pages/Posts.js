@@ -156,6 +156,7 @@ class Posts extends Component {
                 <form onSubmit={(e) => { this.handleModify(e, this.state) }}>
                   <label htmlFor="title">title</label>
                   <input
+                    autoFocus
                     type="text"
                     name="title"
                     value={this.state.title}

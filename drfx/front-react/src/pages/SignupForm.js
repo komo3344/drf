@@ -24,6 +24,7 @@ class SignupForm extends React.Component {
         <h4>Sign Up</h4>
         <label htmlFor="username">Username</label>
         <input
+          autoFocus
           type="text"
           name="username"
           value={this.state.username}

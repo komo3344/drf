@@ -23,6 +23,7 @@ class LoginForm extends React.Component {
         <h4>Log In</h4>
         <label htmlFor="username">Username</label>
         <input
+          autoFocus
           type="text"
           name="username"
           value={this.state.username}
