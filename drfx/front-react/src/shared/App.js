@@ -92,7 +92,7 @@ class App extends Component {
         form = null;
     }
     return (
-      <div>
+      <div align='center'>
         <Nav
           logged_in={this.state.logged_in}
           display_form={this.display_form}
