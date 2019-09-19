@@ -51,7 +51,7 @@ class App extends Component {
   handle_write = (e, data) => {
     console.log('글 작성 시작')
     this.setState({
-      check : true
+      check : !this.state.check
     })
     e.preventDefault();
     var form_data = new FormData();
@@ -73,7 +73,7 @@ class App extends Component {
         console.log(res, '글 작성 끝')
         this.setState({
           displayed_form: '',
-          check : false
+          check : !this.state.check
         });
       })
   };
@@ -139,11 +139,11 @@ class App extends Component {
             : 'Please Log In'
           }
         </h3>
+        <div>
+          <Posts check={this.state.check}></Posts>
+        </div>
         <p><Link to='/users'>User List</Link></p>
-        <p><Link to='/posts'>posts List</Link></p>
-        <Route path="/posts" component={Posts} />
         <Route path="/users" component={Users} />
-
       </div>
     );
 

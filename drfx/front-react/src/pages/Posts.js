@@ -8,11 +8,15 @@ const style = {
   },
 };
 class Posts extends Component {
-  state = {
-    posts: [],
-    editing: false,
-    writing : false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+      editing: false,
+      writing: false
+    };
+  }
+  
 
   handle_change = e => {
     const name = e.target.name;
@@ -23,6 +27,12 @@ class Posts extends Component {
       return newState;
     });
   };
+
+  handleImageChange = e => {
+    this.setState({
+      image: e.target.files[0]
+    })
+  }
 
   handleDelete = url => {
     fetch(url, {
@@ -38,8 +48,9 @@ class Posts extends Component {
   }
 
   async newPostList() {
+    console.log('newPostList 실행')
     try {
-      const res = await fetch(URL.posts);
+      const res = await fetch(URL.posts).then(console.log('패치완료'));
       const posts = await res.json();
       this.setState({
         posts
@@ -68,22 +79,28 @@ class Posts extends Component {
   }
 
   handleModify = (id) => {
+    console.log('글 수정 시작')
+    var form_data = new FormData();
+
+    form_data.append('title', this.state.title);
+    form_data.append('content', this.state.content);
+    form_data.append('image', this.state.image);
+
+
     this.setState({
       editing: !this.state.editing
     })
     fetch(`${URL.posts}${id}/`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `JWT ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({
-        "title": this.state.title,
-        "content": this.state.content,
-        //"image" : this.state.image
-      })
-    })
-    this.newPostList()
+      body: form_data
+    }).then(res =>
+      this.newPostList()
+    )
+    console.log('글 수정 끝')
+    
   }
 
   async componentDidMount() {
@@ -98,10 +115,26 @@ class Posts extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState){
-    this.newPostList()
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('-----------shouldComponentUpdate------------',nextProps)
     return true
-}
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    if (prevProps.check === true && this.props.check === false){
+      this.newPostList()
+    }
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot){
+
+    if (snapshot !== null){
+    }
+    console.log('------------componentDidUpdate-------------')
+  }
+
+
 
   render() {
     return (
@@ -126,13 +159,21 @@ class Posts extends Component {
                     value={this.state.content}
                     onChange={this.handle_change}
                   />
+                  <input
+                    ref="file" 
+                    id="image"
+                    accept="image/png, image/jpeg"
+                    type="file"
+                    name="image"
+                    onChange={this.handleImageChange}
+                  />
                   <input type="submit" />
                 </form>
               </div>
             )
             : (
               <div id='posting'>
-                <h5>원래작업</h5>
+                <h2>게시판</h2>
                 {this.state.posts.map(item =>
                   (
                     <div key={item.url}>
@@ -148,7 +189,6 @@ class Posts extends Component {
                         style={style.image
                         }
                       /><br />
-
                       <button onClick={() => { this.handleDelete(item.url) }}>삭제</button>
                       <button onClick={() => { this.handleUpdate(item.id) }}>수정</button>
                       <br /><br />
