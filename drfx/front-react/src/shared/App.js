@@ -102,14 +102,19 @@ class App extends Component {
                 {form}
                 <h3>
                     {this.state.logged_in
-                        ? `Hello, ${this.state.username}`
+                        ? (
+                        <div >
+                            <h4>Hello, {this.state.username}</h4>
+                            <p><Link to='/users'>User List</Link></p>
+                            <p><Link to='/posts'>posts List</Link></p>
+                            <Route path="/posts" component={Posts} />
+                            <Route path="/users" component={Users} />
+                        </div>
+                        )
                         : 'Please Log In'
                     }
                 </h3>
-                <p><Link to='/users'>User List</Link></p>
-                <p><Link to='/posts'>posts List</Link></p>
-                <Route path="/posts" component={Posts} />
-                <Route path="/users" component={Users} />
+                
                 
             </div>
         );
