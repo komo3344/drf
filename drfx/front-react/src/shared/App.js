@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      username: '',
+      check: false
     };
   }
 
@@ -48,6 +49,10 @@ class App extends Component {
   };
 
   handle_write = (e, data) => {
+    console.log('글 작성 시작')
+    this.setState({
+      check : true
+    })
     e.preventDefault();
     var form_data = new FormData();
 
@@ -65,16 +70,12 @@ class App extends Component {
 
     })
       .then(res => {
-        console.log(res)
-        res.json()
-      })
-      .then(json => {
+        console.log(res, '글 작성 끝')
         this.setState({
-          logged_in: true,
           displayed_form: '',
+          check : false
         });
-      });
-
+      })
   };
 
   handle_signup = (e, data) => {

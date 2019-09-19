@@ -10,7 +10,8 @@ const style = {
 class Posts extends Component {
   state = {
     posts: [],
-    editing: false
+    editing: false,
+    writing : false
   };
 
   handle_change = e => {
@@ -30,13 +31,13 @@ class Posts extends Component {
         Authorization: `JWT ${localStorage.getItem('token')}`
       }
     })
-    .then(res => {
-      this.newPostList()
-    })
-    
+      .then(res => {
+        this.newPostList()
+      })
+
   }
 
-  async newPostList(){
+  async newPostList() {
     try {
       const res = await fetch(URL.posts);
       const posts = await res.json();
@@ -82,9 +83,7 @@ class Posts extends Component {
         //"image" : this.state.image
       })
     })
-    console.log(`${URL.posts}${id}/`)
-    window.location.reload();
-
+    this.newPostList()
   }
 
   async componentDidMount() {
@@ -98,6 +97,11 @@ class Posts extends Component {
       console.log(e);
     }
   }
+
+  shouldComponentUpdate(nextProps, nextState){
+    this.newPostList()
+    return true
+}
 
   render() {
     return (

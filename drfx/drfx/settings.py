@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'api',
     'users',
     'corsheaders',  # HTTP 접근제어 규약(CORS)
+
+    'django_cleanup', # media 파일 모델삭제시 파일도 삭제
 ]
 
 

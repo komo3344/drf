@@ -20,9 +20,6 @@ class Write extends React.Component {
       image: e.target.files[0]
     })
   }
-  getInitialState = () => {
-    return { file: [] }
-  };
   // _onChange = () => {
   //   // Assuming only image
   //   var file = this.refs.file.files[0];
@@ -42,7 +39,10 @@ class Write extends React.Component {
       <div>
         <div>
           <h3>게시물작성 </h3>
-          <form onSubmit={e => this.props.handle_write(e, this.state)}>
+          <form onSubmit={e => {
+            this.props.handle_write(e, this.state)
+            
+          }}>
             <label htmlFor="title">title</label>
             <input
               type="text"
