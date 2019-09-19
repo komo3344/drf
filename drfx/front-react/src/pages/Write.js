@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Write extends React.Component {
-  state = {};
+  state = {
+    title : null,
+    content: null,
+    image: null
+  };
 
   handle_change = e => {
     const name = e.target.name;
@@ -20,23 +23,6 @@ class Write extends React.Component {
       image: e.target.files[0]
     })
   }
-  // getInitialState = () => {
-  //   return { file: [] }
-  // };
-  // _onChange = () => {
-  //   // Assuming only image
-  //   var file = this.refs.file.files[0];
-  //   var reader = new FileReader();
-  //   var url = reader.readAsDataURL(file);
-
-  //   reader.onloadend = function (e) {
-  //     this.setState({
-  //       imgSrc: [reader.result]
-  //     })
-  //   }.bind(this);
-  //   console.log(url) // Would see a path?
-  //   // TODO: concat files
-  // };
   render() {
     return (
       <div>
@@ -58,8 +44,8 @@ class Write extends React.Component {
             /><br />
             <input
               required
-              ref="file" //필요
-              id="image" 
+              ref="file"
+              id="image"
               accept="image/*"
               type="file"
               name="image"
@@ -67,10 +53,6 @@ class Write extends React.Component {
             />
             <input type="submit" />
           </form>
-        </div>
-        <div>
-
-          <p><Link to='/'>Home</Link></p>
         </div>
       </div>
 

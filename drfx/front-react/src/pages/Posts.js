@@ -99,6 +99,9 @@ class Posts extends Component {
     }
   }
   handle_write = (e, data) => {
+    this.setState({
+      writeShowResults : !this.state.writeShowResults
+    })
     e.preventDefault();
     var form_data = new FormData();
 
@@ -142,15 +145,14 @@ class Posts extends Component {
     return (
       <div>
         <div>
-          <input type="submit" value="게시물 작성" onClick={this.onClick} />
-          {this.state.writeShowResults ? <Write handle_write={this.handle_write} /> : null}
+
         </div>
 
         <div>
           {this.state.editing
             ? (
               <div>
-                <h5>수정중</h5>
+                <h3>수정중</h3>
                 <form onSubmit={(e) => { this.handleModify(e, this.state) }}>
                   <label htmlFor="title">title</label>
                   <input
@@ -181,7 +183,9 @@ class Posts extends Component {
             )
             : (
               <div>
-                <h5>원래작업</h5>
+                <h3>게시판</h3>
+                <input type="submit" value="게시물 작성" onClick={this.onClick} />
+                {this.state.writeShowResults ? <Write handle_write={this.handle_write} /> : null}
                 {this.state.posts.map(item =>
                   (
                     <div key={item.url}>

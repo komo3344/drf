@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import { URL, Posts, Users, Nav, SignupForm, LoginForm } from 'pages';
+import { URL, Posts, Nav, SignupForm, LoginForm } from 'pages';
 
 
 class App extends Component {
@@ -8,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       displayed_form: '',
-      logged_in: localStorage.getItem('token') ? true : false,
+      logged_in: true,
       username: ''
     };
   }
@@ -105,10 +104,7 @@ class App extends Component {
             ? (
               <div >
                 <h4>Hello, {this.state.username}</h4>
-                <p><Link to='/users'>User List</Link></p>
-                <p><Link to='/posts'>posts List</Link></p>
-                <Route path="/posts" component={Posts} />
-                <Route path="/users" component={Users} />
+                <Posts></Posts>
               </div>
             )
             : 'Please Log In'

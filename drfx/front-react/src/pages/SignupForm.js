@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 class SignupForm extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    email: ''
   };
 
   handle_change = e => {
