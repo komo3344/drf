@@ -20,9 +20,9 @@ class Write extends React.Component {
       image: e.target.files[0]
     })
   }
-  getInitialState = () => {
-    return { file: [] }
-  };
+  // getInitialState = () => {
+  //   return { file: [] }
+  // };
   // _onChange = () => {
   //   // Assuming only image
   //   var file = this.refs.file.files[0];

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { URL, Write } from 'pages';
+
 const style = {
     image: {
         border: '1px solid #ccc',
@@ -64,26 +65,25 @@ class Posts extends Component {
         
     }
 
-    handleModify = (id) => {
+    handleModify = (e, data) => {
         this.setState({
             editing : !this.state.editing
         })
-        fetch(`${URL.posts}${id}/`,{
+        e.preventDefault();
+        var form_data = new FormData();
+        form_data.append('image', data.image);
+        form_data.append('title', data.title);
+        form_data.append('content', data.content);
+
+        fetch(`${URL.posts}${this.state.id}/`,{
             method: 'PUT',
             headers: {
-                'Content-Type' : 'application/json',
                 Authorization: `JWT ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({
-                "title" : this.state.title,
-                "content" : this.state.content,
-                //"image" : this.state.image
-            })
+            body: form_data
         }).then(() =>{
             this.postlist()
         })
-        // console.log(`${URL.posts}${id}/`)
-        // window.location.reload();
         
     }
 
@@ -127,25 +127,31 @@ class Posts extends Component {
                 this.postlist()
             })
     }
+    
     onClick = () =>{
         this.setState({
             writeShowResults : !this.state.writeShowResults
         })
     }
+    handleImageChange = e => {
+        this.setState({
+          image: e.target.files[0]
+        })
+      }
     render() {
         return (
             <div>
                 <div>
                 <input type="submit" value="게시물 작성" onClick={this.onClick} />
                 { this.state.writeShowResults ? <Write handle_write={this.handle_write} /> : null }
-                    
                 </div>
+
                 <div>
                 {this.state.editing
                     ? (
                         <div>
                             <h5>수정중</h5>
-                            <form onSubmit={() => {this.handleModify(this.state.id)}}>
+                            <form onSubmit={(e) => {this.handleModify(e, this.state)}}>
                                 <label htmlFor="title">title</label>
                                 <input
                                 type="text"
@@ -159,6 +165,15 @@ class Posts extends Component {
                                 name="content"
                                 value={this.state.content}
                                 onChange={this.handle_change}
+                                /><br />
+                                <input
+                                required
+                                ref="file" //필요
+                                id="image" 
+                                accept="image/*"
+                                type="file"
+                                name="image"
+                                onChange={this.handleImageChange}
                                 />
                                 <input type="submit" />
                             </form>
@@ -200,5 +215,4 @@ class Posts extends Component {
         );
     }
 }
-
 export default Posts;
