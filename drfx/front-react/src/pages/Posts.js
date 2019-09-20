@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { URL, Write } from 'pages';
+import deleteAPI from './API'
 
 const style = {
   image: {
@@ -24,21 +25,17 @@ class Posts extends Component {
       return newState;
     });
   };
-
   handleDelete = url => {
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `JWT ${localStorage.getItem('token')}`
-      }
-    }).then(() => {
+    deleteAPI(url).then(() => {
       this.postlist()
     })
   }
   async postlist() {
+    console.log('postlist실행')
     try {
       const res = await fetch(URL.posts);
       const posts = await res.json();
+      console.log(posts)
       this.setState({
         posts
       });
@@ -187,7 +184,7 @@ class Posts extends Component {
                 <h3>게시판</h3>
                 <input type="submit" value="게시물 작성" onClick={this.onClick} />
                 {this.state.writeShowResults ? <Write handle_write={this.handle_write} /> : null}
-                {this.state.posts.map(item =>
+                {this.state.posts.slice(0).reverse().map(item =>
                   (
                     <div key={item.url}>
                       <h4>제목 : {item.title}</h4>

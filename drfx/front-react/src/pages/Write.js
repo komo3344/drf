@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class Write extends React.Component {
   state = {
-    title : null,
-    content: null,
+    title : '',
+    content: '',
     image: null
   };
 
