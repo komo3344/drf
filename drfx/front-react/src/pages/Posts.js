@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { URL, Write } from 'pages';
-import deleteAPI from './API'
 
 const style = {
   image: {
@@ -26,7 +25,10 @@ class Posts extends Component {
     });
   };
   handleDelete = url => {
-    deleteAPI(url)
+    fetch(url, {
+      method: 'DELETE',
+      headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+    })
     .then(() => {
       this.postlist()
     })
