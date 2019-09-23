@@ -1,5 +1,3 @@
-
-
 function deleteAPI(url){
 
   return(
@@ -10,6 +8,4 @@ function deleteAPI(url){
   )
 }
 
-export default {
-  deleteAPI
-}
+export default deleteAPI;

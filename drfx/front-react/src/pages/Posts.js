@@ -25,12 +25,14 @@ class Posts extends Component {
       return newState;
     });
   };
+  //////////////////////////////////////////////////////////////////////////////////////
   handleDelete = url => {
     deleteAPI(url)
     .then(() => {
       this.postlist()
     })
   }
+  //////////////////////////////////////////////////////////////////////////////////////
   async postlist() {
     console.log('postlist실행')
     try {
