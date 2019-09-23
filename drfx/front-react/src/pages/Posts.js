@@ -26,7 +26,8 @@ class Posts extends Component {
     });
   };
   handleDelete = url => {
-    deleteAPI(url).then(() => {
+    deleteAPI(url)
+    .then(() => {
       this.postlist()
     })
   }
