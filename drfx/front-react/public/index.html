@@ -40,19 +40,24 @@
             map: map
         });
 
-
+        function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
         function sample5_execDaumPostcode() {
             new daum.Postcode({
                 oncomplete: function (data) {
                     var addr = data.address; // 최종 주소 변수
 
-                    // 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById("sample5_address").value = addr;
+                    
+                    console.log('원래 주소값 : ',addr)
+                    addr = 'ㅁㅁㅁㅁ ㄴㄴㄴ ㄷㄷ ㄹㄹㄹ'
+                    // addr = '부산광역시 부산진구 백양순환로 '
+                    console.log('바꾼 쓰레기값 : ',addr)
                     // 주소로 상세 정보를 검색
-                    geocoder.addressSearch(data.address, function (results, status) {
+                    geocoder.addressSearch(addr, function (results, status) {
+                        // 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById("sample5_address").value = addr;
                         // 정상적으로 검색이 완료됐으면
                         if (status === daum.maps.services.Status.OK) {
-
+                            console.log(results)//최대 10개를 가져오며 오름차순으로 소팅되서 나온다
                             var result = results[0]; //첫번째 결과의 값을 활용
 
                             // 해당 주소에 대한 좌표를 받아서
@@ -69,6 +74,18 @@
                             // 마커를 결과값으로 받은 위치로 옮긴다.
                             marker.setPosition(coords)
                         }
+                        else if (status === 'ZERO_RESULT'){
+                            console.log(status)
+                            document.getElementById('error message').innerHTML = '일치하는 주소가 없습니다 다시 입력해 주세요.'
+                        }
+                        else if (status === null){
+                            console.log(status)
+                            document.getElementById('error message').innerHTML = '검색창에 주소를 입력해 주세요.'
+                        }
+                        else {
+                            console.log(status)
+                            document.getElementById('error message').innerHTML = '404 Error'
+                        }
                     });
                 }
             }).open();
@@ -78,6 +95,8 @@
     <p id='위도'></p>
     <h3>경도</h3>
     <p id='경도'></p>
+    <p id='error message'></p>
+
 </body>
 
 </html>
