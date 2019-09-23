@@ -23,6 +23,12 @@
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2164b8cf12e0e79b610070b46396fc28&libraries=services"></script>
+    <div id="location" style="display:none">
+            <h3>위도</h3>
+            <p id='위도'></p>
+            <h3>경도</h3>
+            <p id='경도'></p>
+        </div>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
@@ -48,7 +54,7 @@
 
                     
                     console.log('원래 주소값 : ',addr)
-                    addr = 'ㅁㅁㅁㅁ ㄴㄴㄴ ㄷㄷ ㄹㄹㄹ'
+                    // addr = ''
                     // addr = '부산광역시 부산진구 백양순환로 '
                     console.log('바꾼 쓰레기값 : ',addr)
                     // 주소로 상세 정보를 검색
@@ -62,12 +68,11 @@
 
                             // 해당 주소에 대한 좌표를 받아서
                             var coords = new daum.maps.LatLng(result.y, result.x);
-                            var x = document.getElementById("위도")
-                            x.innerHTML = result.x
-                            var y = document.getElementById("경도")
-                            y.innerHTML = result.y
+                            document.getElementById("위도").innerHTML = result.x
+                            document.getElementById("경도").innerHTML = result.y
                             // 지도를 보여준다.
                             mapContainer.style.display = "block";
+                            document.getElementById('location').style.display = "block";
                             map.relayout();
                             // 지도 중심을 변경한다.
                             map.setCenter(coords);
@@ -77,24 +82,23 @@
                         else if (status === 'ZERO_RESULT'){
                             console.log(status)
                             document.getElementById('error message').innerHTML = '일치하는 주소가 없습니다 다시 입력해 주세요.'
+                            alert('일치하는 주소가 없습니다 다시 입력해 주세요.')
                         }
                         else if (status === null){
                             console.log(status)
                             document.getElementById('error message').innerHTML = '검색창에 주소를 입력해 주세요.'
+                            alert('검색창에 주소를 입력해 주세요.')
                         }
                         else {
                             console.log(status)
                             document.getElementById('error message').innerHTML = '404 Error'
+                            alert('404')
                         }
                     });
                 }
             }).open();
         }
     </script>
-    <h3>위도</h3>
-    <p id='위도'></p>
-    <h3>경도</h3>
-    <p id='경도'></p>
     <p id='error message'></p>
 
 </body>
