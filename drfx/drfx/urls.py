@@ -18,9 +18,18 @@ from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
+
+class HomeTemplateView(TemplateView):
+    template_name = 'index.html'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HomeTemplateView.as_view(), name='home'),
     path('api/v1/', include('api.urls')),
     path('token-auth/', obtain_jwt_token),
+    path('accounts/', include('allauth.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

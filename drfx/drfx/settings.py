@@ -40,12 +40,17 @@ INSTALLED_APPS = [
 
     'rest_framework.authtoken',
     'rest_auth',
-    'django.contrib.sites',
+    'django.contrib.sites', # SITE_ID = 1 설정 추가할 때 추가
+
+    #allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'rest_auth.registration',
 
+    # provider 구글, 페이스북, 카톡, 깃헙
+    'allauth.socialaccount.providers.google',
+
+    'rest_auth.registration',
     'api',
     'users',
     'corsheaders',  # HTTP 접근제어 규약(CORS)
@@ -71,7 +76,10 @@ ROOT_URLCONF = 'drfx.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            # 추가된 부분입니다.
+            os.path.join(BASE_DIR, 'front-react', 'build'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +91,9 @@ TEMPLATES = [
         },
     },
 ]
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'front-react', 'build', 'static')
+]
 WSGI_APPLICATION = 'drfx.wsgi.application'
 
 # Database
@@ -163,3 +173,16 @@ JWT_AUTH = {
 }
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 소셜로그인관련
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of 'allauth'
+    'django.contrib.auth.backends.ModelBackend',
+
+    # 'allauth' specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'    # 오류가 나면 홈으로 돌아와라

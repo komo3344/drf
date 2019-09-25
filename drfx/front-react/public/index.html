@@ -9,20 +9,51 @@
     <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta name = "google-signin-client_id" content = "131888224908-kq9ad5n8tu9c1h78kgjmr9qpfm4bla1j.apps.googleusercontent.com" ><!--Google Login-->
+    <meta name = "google-signin-scope" content = "profile email" > <!--Google Login-->
+    <script src = "https://apis.google.com/js/platform.js " Asynchronous delay > </script> <!--Google Login-->
     <title>React App</title>
 </head>
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <!--Google Login-->
+       <div class = "g-signin2" data-onsuccess = "onSignIn" data-theme = "dark"> </div>
+       <script>
+        function onSignIn(googleUser) {
+          // Useful data for your client-side scripts:
+          var profile = googleUser.getBasicProfile();
+          console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+          console.log('Full Name: ' + profile.getName());
+          console.log('Given Name: ' + profile.getGivenName());
+          console.log('Family Name: ' + profile.getFamilyName());
+          console.log("Image URL: " + profile.getImageUrl());
+          console.log("Email: " + profile.getEmail());
+  
+          // The ID token you need to pass to your backend:
+          var id_token = googleUser.getAuthResponse().id_token;
+          console.log("ID Token: " + id_token);
+        }
+      </script>
 
-
+      <!--Google Logout-->
+      <div><a href="#" onclick="signOut();">Sign out</a></div>
+      <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+      </script>
+      
+    <!--Search Map-->
     <input type="text" id="sample5_address" placeholder="주소">
     <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
     <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2164b8cf12e0e79b610070b46396fc28&libraries=services"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a41599017f37fdc4dcec74996d4fdf4&libraries=services"></script>
     <div id="location" style="display:none">
             <h3>위도</h3>
             <p id='위도'></p>
@@ -46,13 +77,11 @@
             map: map
         });
 
-        function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
         function sample5_execDaumPostcode() {
             new daum.Postcode({
                 oncomplete: function (data) {
                     var addr = data.address; // 최종 주소 변수
 
-                    
                     console.log('원래 주소값 : ',addr)
                     // addr = ''
                     // addr = '부산광역시 부산진구 백양순환로 '
@@ -83,6 +112,7 @@
                             console.log(status)
                             document.getElementById('error message').innerHTML = '일치하는 주소가 없습니다 다시 입력해 주세요.'
                             alert('일치하는 주소가 없습니다 다시 입력해 주세요.')
+                            
                         }
                         else if (status === null){
                             console.log(status)
@@ -100,7 +130,7 @@
         }
     </script>
     <p id='error message'></p>
-
+    <div id="root"></div>
 </body>
 
 </html>
