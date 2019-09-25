@@ -24,6 +24,9 @@ class App extends Component {
           this.setState({ username: json.username });
         });
     }
+
+    //카카오 로그인
+    
   }
   handle_login = (e, data) => {
     e.preventDefault();
