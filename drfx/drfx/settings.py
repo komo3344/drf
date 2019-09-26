@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     # provider 구글, 페이스북, 카톡, 깃헙
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.kakao',
 
     'rest_auth.registration',
     'api',

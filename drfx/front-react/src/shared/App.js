@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { URL, Posts, Nav, SignupForm, LoginForm } from 'pages';
+import { URL, Posts, Nav, SignupForm, LoginForm, SocialLogin } from 'pages';
 
 
 class App extends Component {
@@ -96,6 +96,7 @@ class App extends Component {
     }
     return (
       <div align='center'>
+        <SocialLogin />
         <Nav
           logged_in={this.state.logged_in}
           display_form={this.display_form}
